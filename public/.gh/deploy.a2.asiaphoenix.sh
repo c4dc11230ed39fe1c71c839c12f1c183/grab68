@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Change to the project directory.
 cd public_html/asiaphoenix
 
