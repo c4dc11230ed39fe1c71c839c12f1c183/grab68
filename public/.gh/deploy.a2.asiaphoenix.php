@@ -1,6 +1,7 @@
 <?php
 // Execute deploy script
-$output = shell_exec('./deploy.sh');
+// Change the path to the deploy script as needed
+$output = shell_exec('./deploy.a2.asiaphoenix.sh');
 
 // Send back execution output to the webhook originator.
 echo $output;
