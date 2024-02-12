@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\EndPointTestController;
+use App\Http\Controllers\Grab68Controller;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +18,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->away('https://google.com');
 });
+
+Route::controller(EndPointTestController::class)
+    ->prefix('endpoint-test')
+    ->as('endpoint-test.')
+    ->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('json', function (Request $request) {
+            return response()->json($request->server());
+        })->name('json');
+    });
+
+Route::controller(Grab68Controller::class)
+    ->prefix('grab')
+    ->as('grab.')
+    ->group(function () {
+        Route::get('endpoint-test-guzzle', 'testEndpointWithGuzzle')->name('endpoint-test-guzzle');
+    });
