@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Change to the project directory.
-cd public_html/asiaphoenix
+cd /home/jhumlr5ca7ru/public_html/asiaphoenix
 
 # Pull the latest changes from the git repository
 git pull origin main
