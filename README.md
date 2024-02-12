@@ -18,4 +18,7 @@ Run composer update
 
 <!-- Setup Auto deploy -->
 
-Chmod 0775 public/.gh/deploy.xxx.sh
+Chmod 0775 public/.gh/deploylive.xxx.sh
+Chmod 0755 public/.gh/deploylive.xxx.php
+Run test deploy webhook script https://grab68.sample/.gh/deploylive.php
+Add webhook to Github repo
