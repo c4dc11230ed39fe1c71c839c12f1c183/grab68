@@ -17,4 +17,4 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-/.gh/deploy.*
+/public/.gh/deploy.*
