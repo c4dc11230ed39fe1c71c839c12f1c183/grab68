@@ -6,7 +6,12 @@ use Illuminate\Support\Facades\Http;
 
 class Grab68GuzzleHelper
 {
-    public static function scrape($url, $isJson = true)
+    public function scrapeJson($url)
+    {
+        return $this->scrape($url, true);
+    }
+
+    public function scrape($url, $isJson = true)
     {
         $userAgents = [
             'Mozilla/5.0 (Linux; Android 9; 8088X_EEA Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/93.0.4577.62 Safari/537.36',
@@ -1531,12 +1536,11 @@ class Grab68GuzzleHelper
             'Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1'
         ];
 
-
-    $accepts = [
-        'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-        'application/xml,application/xhtml+xml,text/html;q=0.9, text/plain;q=0.8,image/png,*/*;q=0.5',
-        'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-    ];
+        $accepts = [
+            'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'application/xml,application/xhtml+xml,text/html;q=0.9, text/plain;q=0.8,image/png,*/*;q=0.5',
+            'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        ];
 
         $randomUserAgent = $userAgents[array_rand($userAgents)];
         $randomAccept = $accepts[array_rand($accepts)];

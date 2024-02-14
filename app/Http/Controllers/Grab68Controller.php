@@ -10,7 +10,7 @@ class Grab68Controller extends Controller
 {
     public function testEndpointWithGuzzle(Request $request)
     {
-        $response = Grab68GuzzleHelper::scrape(route('endpoint-test.json'));
+        $response = app('grab68')->scrape(route('endpoint-test.json'));
         dump($response);
 
         // return response()->json($response->json());
