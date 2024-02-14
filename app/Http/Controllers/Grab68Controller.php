@@ -37,8 +37,9 @@ class Grab68Controller extends Controller
                 $quote = strtolower($value['to']);
                 $name = $base . '/' . $quote;
                 $pair = ExchangePair::addPair($name, $base, $quote, 'market');
+                dump($pair->toArray());
             }
         }
-        dump($response);
+        // dump($response);
     }
 }
