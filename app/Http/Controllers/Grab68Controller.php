@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ExchangePair;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use App\Helpers\Grab68GuzzleHelper;
 
 class Grab68Controller extends Controller
 {
@@ -32,6 +31,14 @@ class Grab68Controller extends Controller
     public function getTyGia68MarketPrice($apiVersion = 'v1')
     {
         $response = app('grab68')->scrapeJson($this->tyGia68API[$apiVersion]['market_price']);
+        if (!empty($respose['data']['data'])) {
+            foreach ($respose['data']['data'] as $key => $value) {
+                $base = strtolower($value['from']);
+                $quote = strtolower($value['to']);
+                $name = $base . '/' . $quote;
+                $pair = ExchangePair::addPair($name, $base, $quote, 'market');
+            }
+        }
         dump($response);
     }
 }
