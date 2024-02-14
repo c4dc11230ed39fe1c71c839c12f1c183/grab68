@@ -36,4 +36,5 @@ Route::controller(Grab68Controller::class)
     ->as('grab.')
     ->group(function () {
         Route::get('endpoint-test-guzzle', 'testEndpointWithGuzzle')->name('endpoint-test-guzzle');
+        Route::get('ty-gia-68-market-price', 'getTyGia68MarketPrice')->name('ty-gia-68-market-price');
     });
