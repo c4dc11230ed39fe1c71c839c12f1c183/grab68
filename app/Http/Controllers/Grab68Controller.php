@@ -39,10 +39,10 @@ class Grab68Controller extends Controller
         if (!empty($response['data']) && is_array($response['data'])) {
             foreach ($response['data'] as $key => $value) {
                 $currency = strtolower(str_replace(' ', '', $value['exchange_name']));
-                $buyTm = is_numeric(str_replace(',', '', $value['buy_TM'])) ? number_format($value['buy_TM'], 2, ',', '.') : null;
-                $buyCk = is_numeric(str_replace(',', '', $value['buy_CK'])) ? number_format($value['buy_CK'], 2, ',', '.') : null;
-                $sellTm = is_numeric(str_replace(',', '', $value['sell_TM'])) ? number_format($value['sell_TM'], 2, ',', '.') : null;
-                $sellCk = is_numeric(str_replace(',', '', $value['sell_CK'])) ? number_format($value['sell_CK'], 2, ',', '.') : null;
+                $buyTm = $this->reformatNumber($value['buy_TM']);
+                $buyCk = $this->reformatNumber($value['buy_CK']);
+                $sellTm = $this->reformatNumber($value['sell_TM']);
+                $sellCk = $this->reformatNumber($value['sell_CK']);
             }
 
             if (!empty($currency) && !empty($buyTm) && !empty($sellTm)) {
@@ -128,5 +128,17 @@ class Grab68Controller extends Controller
             }
         }
         echo '</pre>';
+    }
+
+    public function reformatNumber($number)
+    {
+        $number = str_replace('.', '', $number);
+        $number = str_replace(',', '.', $number);
+
+        if (is_numeric($number)) {
+            return number_format($number, 2, '.', '');
+        }
+
+        return null;
     }
 }
