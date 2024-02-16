@@ -32,6 +32,7 @@ class Grab68Controller extends Controller
     {
         $response = app('grab68')->scrapeJson($this->tyGia68API[$apiVersion]['market_price']);
         dd($response);
+
         if (!empty($respose['data']['data'])) {
             dd('wtf');
             dump($response['data']['data']);
