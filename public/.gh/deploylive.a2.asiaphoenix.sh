@@ -3,7 +3,8 @@
 # Change to the project directory.
 cd /home/jhumlr5ca7ru/public_html/asiaphoenix
 
-git add .
+# Reset any changes that have been made locally
+git reset --hard HEAD
 
 # Pull the latest changes from the git repository
 git pull origin main
