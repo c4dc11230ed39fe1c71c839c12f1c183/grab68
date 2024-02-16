@@ -43,13 +43,13 @@ class Grab68Controller extends Controller
                 $buyCk = $this->reformatNumber($value['buy_CK']);
                 $sellTm = $this->reformatNumber($value['sell_TM']);
                 $sellCk = $this->reformatNumber($value['sell_CK']);
-            }
 
-            if (!empty($currency) && !empty($buyTm) && !empty($sellTm)) {
-                $history = VcbHistory::addHistory($currency, $buyTm, $buyCk, $sellTm, $sellCk);
-                echo 'History entry ' . ($history->wasRecentlyCreated ? '<b style="color: green">created</b>' : '<b style="color: orange">exists</b>') . ': ' . $history->currency . ' - ' . $history->buy_tm . ' - ' . $history->buy_ck . ' - ' . $history->sell_tm . ' - ' . $history->sell_ck . '<br>';
-            } else {
-                echo '<b style="color: red">Error: ' . ($currency ?? 'Currency') . ' - ' . ($buyTm ?? 'Buy TM') . ' - ' . ($sellTm ?? 'Sell TM') . ' - ' . ($buyCk ?? 'Buy CK') . ' - ' . ($sellCk ?? 'Sell CK') . '</b><br>';
+                if (!empty($currency) && !empty($buyTm) && !empty($sellTm)) {
+                    $history = VcbHistory::addHistory($currency, $buyTm, $buyCk, $sellTm, $sellCk);
+                    echo 'History entry ' . ($history->wasRecentlyCreated ? '<b style="color: green">created</b>' : '<b style="color: orange">exists</b>') . ': ' . $history->currency . ' - ' . $history->buy_tm . ' - ' . $history->buy_ck . ' - ' . $history->sell_tm . ' - ' . $history->sell_ck . '<br>';
+                } else {
+                    echo '<b style="color: red">Error: ' . ($currency ?? 'Currency') . ' - ' . ($buyTm ?? 'Buy TM') . ' - ' . ($sellTm ?? 'Sell TM') . ' - ' . ($buyCk ?? 'Buy CK') . ' - ' . ($sellCk ?? 'Sell CK') . '</b><br>';
+                }
             }
         }
         echo '</pre>';
