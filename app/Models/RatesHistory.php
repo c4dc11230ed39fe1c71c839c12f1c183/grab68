@@ -19,6 +19,15 @@ class RatesHistory extends Model
 
     public static function addRate($exchangePairId, $buyRate, $sellRate)
     {
+        $lastEntry = self::where('exchange_pair_id', $exchangePairId)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        if ($lastEntry && $lastEntry->created_at->gt(now()->subMinute()) && $lastEntry->buy == $buyRate && $lastEntry->sell == $sellRate) {
+            // If the last similar entry was created less than 1 minute ago and the buy and sell rates haven't changed, don't create a new entry
+            return $lastEntry;
+        }
+
         return self::create([
             'exchange_pair_id' => $exchangePairId,
             'buy' => $buyRate,

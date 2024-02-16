@@ -40,6 +40,7 @@ class Grab68Controller extends Controller
                 $name = $base . '/' . $quote;
                 $pair = ExchangePair::addPair($name, $base, $quote);
                 if (!empty($pair->id)) {
+                    echo 'Pair ' . strtoupper($pair->name) . ' ' . ($pair->wasRecentlyCreated ? 'created' : 'updated') . '<br>';
                     $rate = RatesHistory::addRate($pair->id, $value['buy'], $value['sell']);
                 }
 
