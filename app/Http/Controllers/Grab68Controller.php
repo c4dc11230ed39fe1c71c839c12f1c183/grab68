@@ -48,7 +48,7 @@ class Grab68Controller extends Controller
                 $history = NiceHistory::addHistory($sjc, $nice);
                 echo 'History entry ' . ($history->wasRecentlyCreated ? '<b style="color: green">created</b>' : '<b style="color: orange">exists</b>') . ': ' . $history->sjc . ' - ' . $history->nice . '<br>';
             } else {
-                echo '<b style="color: red">Error: ' . $sjc . ' - ' . $nice . '</b><br>';
+                echo '<b style="color: red">Error: ' . ($sjc ?? 'SJC') . ' - ' . ($nice ?? 'NICE') . '</b><br>';
             }
         }
         echo '</pre>';
