@@ -32,11 +32,11 @@ class Grab68Controller extends Controller
     {
         $response = app('grab68')->scrapeJson($this->tyGia68API[$apiVersion]['market_price']);
 
-        if (!empty($respose['data']['data'])) {
+        if (!empty($response['data']['data'])) {
             dd('wtf');
             dump($response['data']['data']);
 
-            foreach ($respose['data']['data'] as $key => $value) {
+            foreach ($response['data']['data'] as $key => $value) {
                 $base = strtolower($value['from']);
                 $quote = strtolower($value['to']);
                 $name = $base . '/' . $quote;
