@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ExchangePair;
+use App\Models\NiceHistory;
 use App\Models\RatesHistory;
 use Illuminate\Http\Request;
 
@@ -29,6 +30,30 @@ class Grab68Controller extends Controller
         // return response()->json($response->json());
     }
 
+    public function getTyGia68NicePrice($apiVersion = 'v1')
+    {
+        $response = app('grab68')->scrapeJson($this->tyGia68API[$apiVersion]['nice']);
+
+        echo '<pre style="font-family: Courier New; font-size: 14px;">';
+        if (!empty($response['data']) && is_array($response['data'])) {
+            foreach ($response['data'] as $key => $value) {
+                if (substr(strtolower($key), 0, 3) == 'sjc') {
+                    $sjc = $value;
+                } elseif (substr(strtolower($key), 0, 4) == 'bdep') {
+                    $nice = $value;
+                }
+            }
+
+            if (!empty($sjc) && !empty($nice)) {
+                $history = NiceHistory::addHistory($sjc, $nice);
+                echo 'History entry ' . ($history->wasRecentlyCreated ? '<b style="color: green">created</b>' : '<b style="color: orange">exists</b>') . ': ' . $history->sjc . ' - ' . $history->nice . '<br>';
+            } else {
+                echo '<b style="color: red">Error: ' . $sjc . ' - ' . $nice . '</b><br>';
+            }
+        }
+        echo '</pre>';
+    }
+
     public function getTyGia68GoldPrice($apiVersion = 'v1')
     {
         $response = app('grab68')->scrapeJson($this->tyGia68API[$apiVersion]['gold']);
@@ -47,7 +72,7 @@ class Grab68Controller extends Controller
                 }
 
                 if (empty($pair->id) || empty($rate->id)) {
-                    echo 'Error: ' . $pair->name . ' - ' . $value['buyingPrice'] . ' - ' . $value['sellingPrice'] . '<br><br>';
+                    echo '<b style="color: red">Error: ' . $pair->name . ' - ' . $value['buyingPrice'] . ' - ' . $value['sellingPrice'] . '</b><br><br>';
                 }
             }
         }
@@ -73,7 +98,7 @@ class Grab68Controller extends Controller
                 }
 
                 if (empty($pair->id) || empty($rate->id)) {
-                    echo 'Error: ' . $pair->name . ' - ' . $value['buy'] . ' - ' . $value['sell'] . '<br><br>';
+                    echo '<b style="color: red">Error: ' . $pair->name . ' - ' . $value['buy'] . ' - ' . $value['sell'] . '</b><br><br>';
                 }
             }
         }
