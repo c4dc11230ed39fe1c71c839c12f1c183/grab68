@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ExchangePair;
+use App\Models\RatesHistory;
 use Illuminate\Http\Request;
 
 class Grab68Controller extends Controller
@@ -38,6 +39,9 @@ class Grab68Controller extends Controller
                 $quote = strtolower($value['to']);
                 $name = $base . '/' . $quote;
                 $pair = ExchangePair::addPair($name, $base, $quote);
+                if (!empty($pair->id)) {
+                    $rate = RatesHistory::addRate($pair->id, $value['buy'], $value['sell']);
+                }
 
                 echo 'Pair ' . strtoupper($pair->name) . ' checked ok <br>';
                 echo 'Last buy: ' . $value['buy'] . '<br>';
