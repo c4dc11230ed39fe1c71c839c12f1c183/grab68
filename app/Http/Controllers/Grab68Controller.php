@@ -39,6 +39,7 @@ class Grab68Controller extends Controller
                 $pair = ExchangePair::addPair($name, $base, $quote);
                 dump($pair->toArray());
             }
+            dump($respose['data']['data']);
         }
         // dump($response);
     }
