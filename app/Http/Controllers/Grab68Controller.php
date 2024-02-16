@@ -42,12 +42,12 @@ class Grab68Controller extends Controller
                 $pair = ExchangePair::addPair($name, $code, 'vnd', 'gold', $description);
                 if (!empty($pair->id)) {
                     echo 'Pair ' . strtoupper($pair->name) . ' ' . ($pair->wasRecentlyCreated ? '<b style="color: green">created</b>' : '<b style="color: green">ok</b>') . '<br>';
-                    $rate = RatesHistory::addRate($pair->id, $value['buy'], $value['sell']);
+                    $rate = RatesHistory::addRate($pair->id, $value['buyingPrice'], $value['sellingPrice']);
                     echo 'Rate entry ' . ($rate->wasRecentlyCreated ? '<b style="color: green">created</b>' : '<b style="color: orange">exists</b>') . ': ' . $rate->buy . ' - ' . $rate->sell . '<br><br>';
                 }
 
                 if (empty($pair->id) || empty($rate->id)) {
-                    echo 'Error: ' . $pair->name . ' - ' . $value['buy'] . ' - ' . $value['sell'] . '<br><br>';
+                    echo 'Error: ' . $pair->name . ' - ' . $value['buyingPrice'] . ' - ' . $value['sellingPrice'] . '<br><br>';
                 }
             }
         }
