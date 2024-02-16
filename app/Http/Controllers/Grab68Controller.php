@@ -37,16 +37,14 @@ class Grab68Controller extends Controller
         echo '<pre style="font-family: Courier New; font-size: 14px;">';
         if (!empty($response['data']) && is_array($response['data'])) {
             foreach ($response['data'] as $key => $value) {
-                dump($value);
-
-                // $currency = strtolower(str_replace(' ', '', $value['exchange_name']));
-                // $buyTm = number_format($value['buy_TM'], 2, ',', '.');
-                // $sellTm = number_format($value['sell_TM'], 2, ',', '.');
-                // $buyCk = number_format($value['buy_CK'], 2, ',', '.');
-                // $sellCk = number_format($value['sell_CK'], 2, ',', '.');
+                $currency = strtolower(str_replace(' ', '', $value['exchange_name']));
+                $buyTm = is_numeric($value['buy_TM']) ? number_format($value['buy_TM'], 2, ',', '.') : null;
+                $buyCk = is_numeric($value['buy_CK']) ? number_format($value['buy_CK'], 2, ',', '.') : null;
+                $sellTm = is_numeric($value['sell_TM']) ? number_format($value['sell_TM'], 2, ',', '.') : null;
+                $sellCk = is_numeric($value['sell_CK']) ? number_format($value['sell_CK'], 2, ',', '.') : null;
             }
 
-            if (!empty($currency) && !empty($buyTm) && !empty($sellTm) && !empty($buyCk) && !empty($sellCk)) {
+            if (!empty($currency) && !empty($buyTm) && !empty($sellTm)) {
                 $history = VcbHistory::addHistory($currency, $buyTm, $buyCk, $sellTm, $sellCk);
                 echo 'History entry ' . ($history->wasRecentlyCreated ? '<b style="color: green">created</b>' : '<b style="color: orange">exists</b>') . ': ' . $history->currency . ' - ' . $history->buy_tm . ' - ' . $history->buy_ck . ' - ' . $history->sell_tm . ' - ' . $history->sell_ck . '<br>';
             } else {
