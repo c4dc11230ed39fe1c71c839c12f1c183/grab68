@@ -31,6 +31,7 @@ class Grab68Controller extends Controller
     public function getTyGia68MarketPrice($apiVersion = 'v1')
     {
         $response = app('grab68')->scrapeJson($this->tyGia68API[$apiVersion]['market_price']);
+        dd($response);
         if (!empty($respose['data']['data'])) {
             dd('wtf');
             dump($response['data']['data']);
