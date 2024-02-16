@@ -32,6 +32,7 @@ class Grab68Controller extends Controller
     {
         $response = app('grab68')->scrapeJson($this->tyGia68API[$apiVersion]['market_price']);
         dd('1988');
+
         if (!empty($respose['data']['data'])) {
             foreach ($respose['data']['data'] as $key => $value) {
                 $base = strtolower($value['from']);
