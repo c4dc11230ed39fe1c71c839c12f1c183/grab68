@@ -39,7 +39,9 @@ class Grab68Controller extends Controller
                 $name = $base . '/' . $quote;
                 $pair = ExchangePair::addPair($name, $base, $quote);
 
-                echo strtoupper($pair->name) . ' checked ok <br>';
+                echo 'Pair ' . strtoupper($pair->name) . ' checked ok <br>';
+                echo 'Last buy: ' . $value['buy'] . '<br>';
+                echo 'Last sell: ' . $value['sell'] . '<br><br>';
             }
         }
     }
