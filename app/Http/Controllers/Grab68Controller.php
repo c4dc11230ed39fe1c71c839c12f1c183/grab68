@@ -35,8 +35,8 @@ class Grab68Controller extends Controller
         $response = app('grab68')->scrapeJson($this->tyGia68API[$apiVersion]['vcb']);
 
         echo '<pre style="font-family: Courier New; font-size: 14px;">';
-        if (!empty($response['data'][0]) && is_array($response['data'][0])) {
-            foreach ($response['data'][0] as $key => $value) {
+        if (!empty($response['data']) && is_array($response['data'])) {
+            foreach ($response['data'] as $key => $value) {
                 $currency = strtolower(str_replace(' ', '', $value['exchange_name']));
                 $buyTm = $value['buy_TM'];
                 $sellTm = $value['sell_TM'];
