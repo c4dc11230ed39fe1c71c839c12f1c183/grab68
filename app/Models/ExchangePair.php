@@ -16,13 +16,14 @@ class ExchangePair extends Model
         'base',
         'quote',
         'type',
+        'description',
     ];
 
-    public static function addPair($name, $base, $quote)
+    public static function addPair($name, $base, $quote, $type, $description = null)
     {
         return self::firstOrCreate(
-            ['name' => $name, 'base' => $base, 'quote' => $quote, 'type' => 'market'],
-            ['name' => $name, 'base' => $base, 'quote' => $quote, 'type' => 'market']
+            ['name' => $name, 'base' => $base, 'quote' => $quote, 'type' => $type],
+            ['name' => $name, 'base' => $base, 'quote' => $quote, 'type' => $type, 'description' => $description]
         );
     }
 }
