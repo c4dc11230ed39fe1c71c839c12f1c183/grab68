@@ -44,7 +44,7 @@ class Grab68Controller extends Controller
                 $sellCk = is_numeric($value['sell_CK']) ? number_format($value['sell_CK'], 2, ',', '.') : null;
             }
 
-            if (!empty($currency) && !empty($buyTm) && !empty($sellTm)) {
+            if (!empty($currency)) {
                 $history = VcbHistory::addHistory($currency, $buyTm, $buyCk, $sellTm, $sellCk);
                 echo 'History entry ' . ($history->wasRecentlyCreated ? '<b style="color: green">created</b>' : '<b style="color: orange">exists</b>') . ': ' . $history->currency . ' - ' . $history->buy_tm . ' - ' . $history->buy_ck . ' - ' . $history->sell_tm . ' - ' . $history->sell_ck . '<br>';
             } else {
