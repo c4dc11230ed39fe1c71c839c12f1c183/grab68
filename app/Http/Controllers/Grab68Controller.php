@@ -37,11 +37,13 @@ class Grab68Controller extends Controller
         echo '<pre style="font-family: Courier New; font-size: 14px;">';
         if (!empty($response['data']) && is_array($response['data'])) {
             foreach ($response['data'] as $key => $value) {
-                $currency = strtolower(str_replace(' ', '', $value['exchange_name']));
-                $buyTm = number_format($value['buy_TM'], 2, ',', '.');
-                $sellTm = number_format($value['sell_TM'], 2, ',', '.');
-                $buyCk = number_format($value['buy_CK'], 2, ',', '.');
-                $sellCk = number_format($value['sell_CK'], 2, ',', '.');
+                dump($value);
+
+                // $currency = strtolower(str_replace(' ', '', $value['exchange_name']));
+                // $buyTm = number_format($value['buy_TM'], 2, ',', '.');
+                // $sellTm = number_format($value['sell_TM'], 2, ',', '.');
+                // $buyCk = number_format($value['buy_CK'], 2, ',', '.');
+                // $sellCk = number_format($value['sell_CK'], 2, ',', '.');
             }
 
             if (!empty($currency) && !empty($buyTm) && !empty($sellTm) && !empty($buyCk) && !empty($sellCk)) {
