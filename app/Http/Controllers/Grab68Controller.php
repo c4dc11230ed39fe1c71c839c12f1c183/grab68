@@ -33,6 +33,7 @@ class Grab68Controller extends Controller
     {
         $response = app('grab68')->scrapeJson($this->tyGia68API[$apiVersion]['market_price']);
 
+        echo '<pre style="font-family: Courier New; font-size: 14px;">';
         if (!empty($response['data']['data'])) {
             foreach ($response['data']['data'] as $key => $value) {
                 $base = strtolower($value['from']);
@@ -50,5 +51,6 @@ class Grab68Controller extends Controller
                 }
             }
         }
+        echo '</pre>';
     }
 }
