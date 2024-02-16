@@ -3,6 +3,8 @@
 # Change to the project directory.
 cd ~/path/to/project
 
+git add .
+
 # Pull the latest changes from the git repository
 git pull origin main
 

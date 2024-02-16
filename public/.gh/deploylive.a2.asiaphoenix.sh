@@ -3,6 +3,8 @@
 # Change to the project directory.
 cd /home/jhumlr5ca7ru/public_html/asiaphoenix
 
+git add .
+
 # Pull the latest changes from the git repository
 git pull origin main
 
