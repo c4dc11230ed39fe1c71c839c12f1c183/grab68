@@ -61,7 +61,7 @@ class Grab68Controller extends Controller
         if (!empty($response['data']['data'])) {
             foreach ($response['data']['data'] as $key => $value) {
                 $base = strtolower($value['from']);
-                $quote = strtolower($value['to']);
+                $quote = strtolower(str_replace(' ', '', $value['to']));
                 $name = $base . '/' . $quote;
                 $pair = ExchangePair::addPair($name, $base, $quote);
                 if (!empty($pair->id)) {
