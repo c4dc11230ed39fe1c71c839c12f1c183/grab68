@@ -42,11 +42,12 @@ class Grab68Controller extends Controller
                 if (!empty($pair->id)) {
                     echo 'Pair ' . strtoupper($pair->name) . ' ' . ($pair->wasRecentlyCreated ? 'created' : 'updated') . '<br>';
                     $rate = RatesHistory::addRate($pair->id, $value['buy'], $value['sell']);
+                    echo 'Rate entry ' . ($rate->wasRecentlyCreated ? 'created' : 'exists') . ': ' . $rate->buy . ' - ' . $rate->sell . '<br><br>';
                 }
 
-                echo 'Pair ' . strtoupper($pair->name) . ' checked ok <br>';
-                echo 'Last buy: ' . $value['buy'] . '<br>';
-                echo 'Last sell: ' . $value['sell'] . '<br><br>';
+                if (empty($pair->id) || empty($rate->id)) {
+                    echo 'Error: ' . $pair->name . ' - ' . $value['buy'] . ' - ' . $value['sell'] . '<br><br>';
+                }
             }
         }
     }
