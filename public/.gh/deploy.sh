@@ -26,3 +26,7 @@ php artisan config:cache
 
 # Clear and cache views
 php artisan view:cache
+
+# Chmod deploy files again
+chmod +x public/.gh/deploylive.a2.asiaphoenix.sh
+chmod +x public/.gh/deploylive.a2.asiaphoenix.php
