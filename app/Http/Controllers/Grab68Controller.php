@@ -37,7 +37,7 @@ class Grab68Controller extends Controller
         if (!empty($response['data']) && is_array($response['data'])) {
             foreach ($response['data'] as $key => $value) {
                 $code = strtolower(str_replace(' ', '', $value['code']));
-                $description = strtolower(str_replace(' ', '', $value['name']));
+                $description = mb_convert_case($value['name'], MB_CASE_TITLE, 'UTF-8');
                 $name = $code . '/vnd';
                 $pair = ExchangePair::addPair($name, $code, 'vnd', 'gold', $description);
                 if (!empty($pair->id)) {
