@@ -104,8 +104,20 @@ class Grab68Controller extends Controller
         echo '</pre>';
     }
 
+    public function getTyGia68MarketPrice($apiVersion = 'v1') {
+        $this->getTyGia68Price('market', $apiVersion);
+    }
+
+    public function getTyGia68eMoneyPrice($apiVersion = 'v1') {
+        $this->getTyGia68Price('emoney', $apiVersion);
+    }
+
+    public function getTyGia68UsdtPrice($apiVersion = 'v1') {
+        $this->getTyGia68Price('usdt', $apiVersion);
+    }
+
     // ! Only for Market, Emoney and USDT
-    public function getTyGia68MarketPrice($type = 'market', $apiVersion = 'v1')
+    public function getTyGia68Price($type = 'market', $apiVersion = 'v1')
     {
         $response = app('grab68')->scrapeJson($this->tyGia68API[$apiVersion][$type]);
 
