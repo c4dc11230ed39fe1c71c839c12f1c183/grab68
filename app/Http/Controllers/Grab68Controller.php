@@ -53,4 +53,28 @@ class Grab68Controller extends Controller
         }
         echo '</pre>';
     }
+
+    public function getTyGia68eCurrencyPrice($apiVersion = 'v1') {
+        $response = app('grab68')->scrapeJson($this->tyGia68API[$apiVersion]['currency_to_e_currency']);
+
+        echo '<pre style="font-family: Courier New; font-size: 14px;">';
+        if (!empty($response['data']['data'])) {
+            foreach ($response['data']['data'] as $key => $value) {
+                $base = strtolower($value['from']);
+                $quote = strtolower($value['to']);
+                $name = $base . '/' . $quote;
+                $pair = ExchangePair::addPair($name, $base, $quote);
+                if (!empty($pair->id)) {
+                    echo 'Pair ' . strtoupper($pair->name) . ' ' . ($pair->wasRecentlyCreated ? 'created' : '<b style="color: green">ok</b>') . '<br>';
+                    $rate = RatesHistory::addRate($pair->id, $value['buy'], $value['sell']);
+                    echo 'Rate entry ' . ($rate->wasRecentlyCreated ? '<b style="color: green">created</b>' : '<b style="color: orange">exists</b>') . ': ' . $rate->buy . ' - ' . $rate->sell . '<br><br>';
+                }
+
+                if (empty($pair->id) || empty($rate->id)) {
+                    echo 'Error: ' . $pair->name . ' - ' . $value['buy'] . ' - ' . $value['sell'] . '<br><br>';
+                }
+            }
+        }
+        echo '</pre>';
+    }
 }
