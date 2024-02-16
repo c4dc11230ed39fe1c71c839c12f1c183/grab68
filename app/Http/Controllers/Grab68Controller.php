@@ -36,6 +36,7 @@ class Grab68Controller extends Controller
 
         echo '<pre style="font-family: Courier New; font-size: 14px;">';
         if (!empty($response['data']) && is_array($response['data'])) {
+            dd($response['data']);
             foreach ($response['data'] as $key => $value) {
                 echo $key . ' - ' . $value . '<br>';
 
