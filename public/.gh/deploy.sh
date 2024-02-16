@@ -28,5 +28,5 @@ php artisan config:cache
 php artisan view:cache
 
 # Chmod deploy files again
-chmod +x public/.gh/deploylive.a2.asiaphoenix.sh
-chmod +x public/.gh/deploylive.a2.asiaphoenix.php
+chmod +x public/.gh/deploy.sh
+chmod +x public/.gh/deploy.php

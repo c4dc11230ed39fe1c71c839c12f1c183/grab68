@@ -1,28 +1,32 @@
-    #!/bin/sh
+#!/bin/sh
 
-    # Change to the project directory.
-    cd /home/jhumlr5ca7ru/public_html/asiaphoenix
+# Change to the project directory.
+cd /home/jhumlr5ca7ru/public_html/asiaphoenix
 
-    # Reset any changes that have been made locally
-    git reset --hard HEAD
+# Reset any changes that have been made locally
+git reset --hard HEAD
 
-    # Pull the latest changes from the git repository
-    git pull origin main
+# Pull the latest changes from the git repository
+git pull origin main
 
-    # Install/update composer dependencies
-    composer install --no-interaction
+# Install/update composer dependencies
+composer install --no-interaction
 
-    # Run database migrations
-    php artisan migrate --force
+# Run database migrations
+php artisan migrate --force
 
-    # Clear caches
-    php artisan cache:clear
+# Clear caches
+php artisan cache:clear
 
-    # Clear and cache routes
-    php artisan route:cache
+# Clear and cache routes
+php artisan route:cache
 
-    # Clear and cache config
-    php artisan config:cache
+# Clear and cache config
+php artisan config:cache
 
-    # Clear and cache views
-    php artisan view:cache
+# Clear and cache views
+php artisan view:cache
+
+# Chmod deploy files again
+chmod +x public/.gh/deploy.sh
+chmod +x public/.gh/deploy.php
