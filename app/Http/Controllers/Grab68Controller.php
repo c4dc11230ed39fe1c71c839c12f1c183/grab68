@@ -41,6 +41,7 @@ class Grab68Controller extends Controller
             }
             dump($respose['data']['data']);
         }
-        // dump($response);
+
+        dump($response);
     }
 }
