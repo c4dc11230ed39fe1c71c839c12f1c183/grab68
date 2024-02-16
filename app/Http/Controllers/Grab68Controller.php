@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ExchangePair;
 use App\Models\NiceHistory;
 use App\Models\RatesHistory;
+use App\Models\VcbHistory;
 use Illuminate\Http\Request;
 
 class Grab68Controller extends Controller
@@ -17,7 +18,7 @@ class Grab68Controller extends Controller
             'gold'   => 'https://api.rate68.com/api/exchange-rate/gold-price-v2?client_id=2',
             'nice'   => 'https://api.rate68.com/api/exchange-rate/nice-price?client_id=2',
             // 'gold2'  => 'https://api.rate68.com/api/exchange-rate/gold-reference?client_id=2',
-            'vcb'    => 'https://api.rate68.com/api/exchange-rate-bank/vietcombank?page=1&limit=10&sort=DESC&bank_code=vietcombank&client_id=2',
+            'vcb'    => 'https://api.rate68.com/api/exchange-rate-bank/vietcombank?page=1&limit=100&sort=DESC&bank_code=vietcombank&client_id=2',
         ],
 
     ];
@@ -28,6 +29,29 @@ class Grab68Controller extends Controller
         dump($response);
 
         // return response()->json($response->json());
+    }
+
+    public function getTyGia68VcbPrice($apiVersion = 'v1') {
+        $response = app('grab68')->scrapeJson($this->tyGia68API[$apiVersion]['vcb']);
+
+        echo '<pre style="font-family: Courier New; font-size: 14px;">';
+        if (!empty($response['data'][0]) && is_array($response['data'][0])) {
+            foreach ($response['data'][0] as $key => $value) {
+                $currency = strtolower(str_replace(' ', '', $value['exchange_name']));
+                $buyTm = $value['buy_TM'];
+                $sellTm = $value['sell_TM'];
+                $buyCk = $value['buy_CK'];
+                $sellCk = $value['sell_CK'];
+            }
+
+            if (!empty($currency) && !empty($buyTm) && !empty($sellTm) && !empty($buyCk) && !empty($sellCk)) {
+                $history = VcbHistory::addHistory($currency, $buyTm, $buyCk, $sellTm, $sellCk);
+                echo 'History entry ' . ($history->wasRecentlyCreated ? '<b style="color: green">created</b>' : '<b style="color: orange">exists</b>') . ': ' . $history->currency . ' - ' . $history->buy_tm . ' - ' . $history->buy_ck . ' - ' . $history->sell_tm . ' - ' . $history->sell_ck . '<br>';
+            } else {
+                echo '<b style="color: red">Error: ' . ($currency ?? 'Currency') . ' - ' . ($buyTm ?? 'Buy TM') . ' - ' . ($sellTm ?? 'Sell TM') . ' - ' . ($buyCk ?? 'Buy CK') . ' - ' . ($sellCk ?? 'Sell CK') . '</b><br>';
+            }
+        }
+        echo '</pre>';
     }
 
     public function getTyGia68NicePrice($apiVersion = 'v1')
