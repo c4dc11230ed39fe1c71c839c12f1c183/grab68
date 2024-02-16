@@ -38,7 +38,8 @@ class Grab68Controller extends Controller
                 $quote = strtolower($value['to']);
                 $name = $base . '/' . $quote;
                 $pair = ExchangePair::addPair($name, $base, $quote);
-                dump($pair->toArray());
+
+                echo strtoupper($pair->name) . ' checked ok <br>';
             }
         }
     }
