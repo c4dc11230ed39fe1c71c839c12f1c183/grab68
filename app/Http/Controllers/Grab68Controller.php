@@ -167,7 +167,7 @@ class Grab68Controller extends Controller
                 echo response()->json([
                     'status' => 'ok',
                     'data' => $return
-                ], 200);
+                ]);
 
                 exit;
             }
@@ -176,6 +176,6 @@ class Grab68Controller extends Controller
         echo response()->json([
             'status' => 'error',
             'message' => 'Empty data received from TransferWise.'
-        ], 400);
+        ]);
     }
 }
