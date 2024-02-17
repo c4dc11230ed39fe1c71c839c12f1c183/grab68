@@ -167,6 +167,10 @@ class Grab68Controller extends Controller
             $swiftData = $matches[1] ?? null;
             $return = $swiftData ? json_decode($swiftData, true) : null;
             if (is_array($return) && !empty($return)) {
+                if (!empty($return['country'])) {
+                    unset($return['country']);
+                }
+                
                 return response()->json([
                     'status' => 'ok',
                     'data' => $return
