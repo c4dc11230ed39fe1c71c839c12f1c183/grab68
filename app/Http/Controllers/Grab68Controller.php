@@ -158,7 +158,7 @@ class Grab68Controller extends Controller
     {
         $response = app('grab68')->scrape('https://transferwise.com/gb/swift-codes/' . $swiftCode);
 
-        dump($response);
+        echo '1';
 
         echo $response;
     }
