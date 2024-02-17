@@ -104,15 +104,18 @@ class Grab68Controller extends Controller
         echo '</pre>';
     }
 
-    public function getTyGia68MarketPrice($apiVersion = 'v1') {
+    public function getTyGia68MarketPrice($apiVersion = 'v1')
+    {
         $this->getTyGia68Price('market', $apiVersion);
     }
 
-    public function getTyGia68eMoneyPrice($apiVersion = 'v1') {
+    public function getTyGia68eMoneyPrice($apiVersion = 'v1')
+    {
         $this->getTyGia68Price('emoney', $apiVersion);
     }
 
-    public function getTyGia68UsdtPrice($apiVersion = 'v1') {
+    public function getTyGia68UsdtPrice($apiVersion = 'v1')
+    {
         $this->getTyGia68Price('usdt', $apiVersion);
     }
 
@@ -158,12 +161,16 @@ class Grab68Controller extends Controller
     {
         $response = app('grab68')->scrapeHtml('https://transferwise.com/swift-codes/' . $swiftCode);
 
+        ob_start();
+
         if (!empty($response)) {
             $pattern = '/var branch = (.*?);/';
             preg_match($pattern, $response, $matches);
             $swiftData = $matches[1] ?? null;
             $return = $swiftData ? json_decode($swiftData, true) : null;
             if (is_array($return) && !empty($return)) {
+                ob_clean();
+                
                 echo response()->json([
                     'status' => 'ok',
                     'data' => $return
