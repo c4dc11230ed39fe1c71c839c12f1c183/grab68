@@ -158,6 +158,17 @@ class Grab68Controller extends Controller
     {
         $response = app('grab68')->scrapeHtml('https://transferwise.com/swift-codes/' . $swiftCode);
 
-        echo $response;
+        if (!empty($response)) {
+            $pattern = '/var branch = (.*?);/';
+            preg_match($pattern, $response, $matches);
+            $swiftData = $matches[1] ?? null;
+            $return = $swiftData ? json_decode($swiftData, true) : null;
+            dump($return);
+        }
+
+        echo response()->json([
+            'status' => 'error',
+            'message' => 'Empty data received from TransferWise.'
+        ], 400);
     }
 }
