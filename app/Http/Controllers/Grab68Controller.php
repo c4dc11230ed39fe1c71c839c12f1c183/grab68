@@ -156,7 +156,7 @@ class Grab68Controller extends Controller
 
     public function getWiseSwiftCode($swiftCode)
     {
-        $response = app('grab68')->scrape('https://transferwise.com/gb/swift-codes/' . $swiftCode);
+        $response = app('grab68')->scrape('https://transferwise.com/swift-codes/' . $swiftCode);
 
         echo '1';
 
