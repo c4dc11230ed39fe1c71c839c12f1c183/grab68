@@ -199,13 +199,13 @@ class Grab68Controller extends Controller
                             'is_active' => $isActive
                         ]
                     ]);
-                } else {
-                    return response()->json([
-                        'status' => 'error',
-                        'message' => 'Data parse error. Call <a href="/grab/wise-swift-code-raw/' . $swiftCode . '">this link</a> to get Raw response'
-                    ]);
                 }
             }
+
+            return response()->json([
+                'status' => 'error',
+                'data' => 'Data parse error. Call <a href="/grab/wise-swift-code-raw/' . $swiftCode . '">this link</a> to get Raw response'
+            ]);
         }
 
         return response()->json([
