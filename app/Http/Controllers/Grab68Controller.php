@@ -163,7 +163,14 @@ class Grab68Controller extends Controller
             preg_match($pattern, $response, $matches);
             $swiftData = $matches[1] ?? null;
             $return = $swiftData ? json_decode($swiftData, true) : null;
-            dump($return);
+            if (is_array($return) && !empty($return)) {
+                echo response()->json([
+                    'status' => 'ok',
+                    'data' => $return
+                ], 200);
+
+                exit;
+            }
         }
 
         echo response()->json([
