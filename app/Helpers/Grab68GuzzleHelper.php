@@ -11,6 +11,11 @@ class Grab68GuzzleHelper
         return $this->scrape($url, true);
     }
 
+    public function scrapeHtml($url)
+    {
+        return $this->scrape($url, false);
+    }
+
     public function scrape($url, $isJson = true)
     {
         $userAgents = [
