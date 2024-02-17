@@ -192,11 +192,11 @@ class Grab68Controller extends Controller
                         'status' => 'ok',
                         'data' => [
                             'bank_name' => $bankName,
-                            'branch_city' => $branchCity,
                             'branch_address' => $branchAddress,
+                            'branch_city' => $branchCity,
                             'bank_country' => $bankCountry,
                             'head_office' => $headOffice,
-                            'is_active' => $isActive
+                            'active' => $isActive
                         ]
                     ]);
                 }
