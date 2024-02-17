@@ -210,7 +210,7 @@ class Grab68Controller extends Controller
 
         return response()->json([
             'status' => 'error',
-            'message' => 'Empty data received from TransferWise.'
+            'message' => 'Empty data received from TransferWise. Call <a href="https://transferwise.com/swift-codes/' . $swiftCode . '">this link</a> to check'
         ]);
     }
 }
