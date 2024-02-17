@@ -153,4 +153,11 @@ class Grab68Controller extends Controller
 
         return null;
     }
+
+    public function getWiseSwiftCode($swiftCode)
+    {
+        $response = app('grab68')->scrapeJson('https://transferwise.com/gb/swift-codes/' . $swiftCode);
+
+        echo $response;
+    }
 }
