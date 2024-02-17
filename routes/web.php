@@ -41,4 +41,5 @@ Route::controller(Grab68Controller::class)
         Route::get('ty-gia-68-nice', 'getTyGia68NicePrice')->name('ty-gia-68-nice');
         Route::get('ty-gia-68-vcb', 'getTyGia68VcbPrice')->name('ty-gia-68-vcb');
         Route::get('wise-swift-code/{swiftCode}', 'getWiseSwiftCode')->name('wise-swift-code');
+        Route::get('wise-swift-code-raw/{swiftCode}', 'getWiseSwiftCodeRaw')->name('wise-swift-code-raw');
     });

@@ -157,9 +157,18 @@ class Grab68Controller extends Controller
         return null;
     }
 
-    public function getWiseSwiftCode($swiftCode)
+    public function getWiseSwiftCodeRaw($swiftCode)
+    {
+        return $this->getWiseSwiftCode($swiftCode, true);
+    }
+
+    public function getWiseSwiftCode($swiftCode, $returnRaw = false)
     {
         $response = app('grab68')->scrapeHtml('https://transferwise.com/swift-codes/' . $swiftCode);
+
+        if ($returnRaw == true) {
+            return $response;
+        }
 
         if (!empty($response)) {
             $pattern = '/var branch = (.*?);/';
@@ -170,11 +179,32 @@ class Grab68Controller extends Controller
                 if (!empty($return['country'])) {
                     unset($return['country']);
                 }
-                
-                return response()->json([
-                    'status' => 'ok',
-                    'data' => $return
-                ]);
+
+                $bankName = $return['name'] ?? null;
+                $branchCity = $return['city']['name'] ?? null;
+                $branchAddress = $return['address'] ?? null;
+                $bankCountry = $return['bicCode']['countryCode'] ?? null;
+                $headOffice = $return['bicCode']['headOffice'] ?? null;
+                $isActive = $return['bicCode']['supported'] ?? null;
+
+                if (!empty($bankName)) {
+                    return response()->json([
+                        'status' => 'ok',
+                        'data' => [
+                            'bank_name' => $bankName,
+                            'branch_city' => $branchCity,
+                            'branch_address' => $branchAddress,
+                            'bank_country' => $bankCountry,
+                            'head_office' => $headOffice,
+                            'is_active' => $isActive
+                        ]
+                    ]);
+                } else {
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => 'Data parse error. Call <a href="/grab/wise-swift-code-raw/' . $swiftCode . '">this link</a> to get Raw response'
+                    ]);
+                }
             }
         }
 
