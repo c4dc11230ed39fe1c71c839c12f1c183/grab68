@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
         $schedule->call('\App\Http\Controllers\Grab68Controller@getTyGia68GoldPrice')->everyFiveMinutes()->name('ty-gia-68-gold-price')->withoutOverlapping();
         $schedule->call('\App\Http\Controllers\Grab68Controller@getTyGia68NicePrice')->everyFiveMinutes()->name('ty-gia-68-nice-price')->withoutOverlapping();
         $schedule->call('\App\Http\Controllers\Grab68Controller@getTyGia68VcbPrice')->everyFiveMinutes()->name('ty-gia-68-vcb-price')->withoutOverlapping();
+        $schedule->call('\App\Http\Controllers\Grab68Controller@getTyGia68Analyzer')->everyTwentySeconds()->name('ty-gia-68-analyzer')->withoutOverlapping();
     }
 
     /**
