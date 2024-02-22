@@ -13,6 +13,14 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+
+        $schedule->call('\EiichiroOda\OpGrab68\Controllers\OpGrab68Controller@tyGia68AnalyzeV1')->everyFifteenSeconds()->name('ty-gia-68-analyzer')->withoutOverlapping();
+        $schedule->call('\EiichiroOda\OpGrab68\Controllers\OpGrab68Controller@getTyGia68MarketPrice')->everyMinute()->name('ty-gia-68-market-price')->withoutOverlapping();
+        $schedule->call('\EiichiroOda\OpGrab68\Controllers\OpGrab68Controller@getTyGia68EmoneyPrice')->everyMinute()->name('ty-gia-68-emoney-price')->withoutOverlapping();
+        $schedule->call('\EiichiroOda\OpGrab68\Controllers\OpGrab68Controller@getTyGia68UsdtPrice')->everyMinute()->name('ty-gia-68-usdt-price')->withoutOverlapping();
+        $schedule->call('\EiichiroOda\OpGrab68\Controllers\OpGrab68Controller@getTyGia68GoldPrice')->everyFiveMinutes()->name('ty-gia-68-gold-price')->withoutOverlapping();
+        $schedule->call('\EiichiroOda\OpGrab68\Controllers\OpGrab68Controller@getTyGia68NicePrice')->everyFiveMinutes()->name('ty-gia-68-nice-price')->withoutOverlapping();
+        $schedule->call('\EiichiroOda\OpGrab68\Controllers\OpGrab68Controller@getTyGia68VcbPrice')->everyFiveMinutes()->name('ty-gia-68-vcb-price')->withoutOverlapping();
     }
 
     /**
