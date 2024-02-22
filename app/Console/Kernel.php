@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+
         $schedule->call('\App\Http\Controllers\Grab68Controller@getTyGia68MarketPrice')->everyMinute()->name('ty-gia-68-market-price')->withoutOverlapping();
         $schedule->call('\App\Http\Controllers\Grab68Controller@getTyGia68EmoneyPrice')->everyMinute()->name('ty-gia-68-emoney-price')->withoutOverlapping();
         $schedule->call('\App\Http\Controllers\Grab68Controller@getTyGia68UsdtPrice')->everyMinute()->name('ty-gia-68-usdt-price')->withoutOverlapping();
