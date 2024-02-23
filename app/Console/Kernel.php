@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
 
+        $schedule->call('\EiichiroOda\OpGrab68\Controllers\OpCron68Controller@autoGrab68Job')->everyFifteenMinutes()->name('auto-grab-68-job')->withoutOverlapping();
         $schedule->call('\EiichiroOda\OpGrab68\Controllers\OpGrab68Controller@tyGia68AnalyzeV1')->everyFifteenSeconds()->name('ty-gia-68-analyzer')->withoutOverlapping();
         $schedule->call('\EiichiroOda\OpGrab68\Controllers\OpGrab68Controller@getTyGia68MarketPrice')->everyMinute()->name('ty-gia-68-market-price')->withoutOverlapping();
         $schedule->call('\EiichiroOda\OpGrab68\Controllers\OpGrab68Controller@getTyGia68EmoneyPrice')->everyMinute()->name('ty-gia-68-emoney-price')->withoutOverlapping();
