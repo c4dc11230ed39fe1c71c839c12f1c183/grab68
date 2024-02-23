@@ -24,6 +24,7 @@ class Kernel extends ConsoleKernel
         $schedule->call('\EiichiroOda\OpGrab68\Controllers\OpGrab68Controller@getTyGia68GoldPrice')->everyFiveMinutes()->name('ty-gia-68-gold-price')->withoutOverlapping();
         $schedule->call('\EiichiroOda\OpGrab68\Controllers\OpGrab68Controller@getTyGia68NicePrice')->everyFiveMinutes()->name('ty-gia-68-nice-price')->withoutOverlapping();
         $schedule->call('\EiichiroOda\OpGrab68\Controllers\OpGrab68Controller@getTyGia68VcbPrice')->everyFiveMinutes()->name('ty-gia-68-vcb-price')->withoutOverlapping();
+        $schedule->call('\EiichiroOda\OpGrab68\Controllers\OpWise68Controller@getWiseComparisons')->everyFifteenMinutes()->name('wise-comparisons')->withoutOverlapping();
     }
 
     /**
